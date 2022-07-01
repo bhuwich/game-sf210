@@ -101,43 +101,46 @@ def game():
                 return
             if event.type == pygame.MOUSEBUTTONDOWN:
                 timeStart = time.time()
-                if(button.collidepoint(pygame.mouse.get_pos())):
+                if(cat_hitbox.collidepoint(pygame.mouse.get_pos())):
                     check = False
                
             if event.type == pygame.MOUSEBUTTONUP:
-                if(button.collidepoint(pygame.mouse.get_pos()) and check == False):
+                if(cat_hitbox.collidepoint(pygame.mouse.get_pos()) and check == False):
                     timeend = time.time()
                     timecount = timeend - timeStart
                     print("time = ", timeend - timeStart)
                     print(pygame.mouse.get_pos())
                     ball.conves(int(timecount))
                     check = True
-                    balls = True
+                    balls = True 
+
+        cat_hitbox = pygame.draw.rect(display,(255,0,0),pygame.Rect(30,450,100,100))
+        dog_hitbox = pygame.draw.rect(display,(255,0,0),pygame.Rect(870,450,100,100))
+        button =pygame.draw.rect(display,(255,0,0),pygame.Rect(450,300,100,400))
+        display.blit(bg,(0,0))
+        display.blit(cat,(10,420))
+        display.blit(dog,(850,430))
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if(cat_hitbox.collidepoint(pygame.mouse.get_pos())):
+                display.blit(cat1,(10,420))
+            if(dog_hitbox.collidepoint(pygame.mouse.get_pos())):
+                display.blit(dog1,(850,430))
+        if event.type == pygame.MOUSEBUTTONUP:
+            if(cat_hitbox.collidepoint(pygame.mouse.get_pos())):
+                display.blit(cat2,(10,420))
+            if(dog_hitbox.collidepoint(pygame.mouse.get_pos())):
+                display.blit(dog2,(850,430))
+
         if balls :
             move = ball.move(timecount)
-            display.fill((255,255,255))
             ball.draw()
             if move == False and event.type == pygame.MOUSEBUTTONDOWN:
-                 
-                 if(button.collidepoint(pygame.mouse.get_pos())):
+                if(cat_hitbox.collidepoint(pygame.mouse.get_pos())):
                     ball.check()
                     balls = False
                     ball.conves(int(timecount))
 
-        display.blit(bg,(0,0))
-        display.blit(cat,(10,420))
-        display.blit(dog,(850,435))
-
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            display.blit(cat1,(10,420))
-            display.blit(dog1,(850,430))
-        if event.type == pygame.MOUSEBUTTONUP:
-            display.blit(cat2,(10,420))
-            display.blit(dog2,(850,430))
-
-            
-        button =pygame.draw.rect(display,(255,0,0),pygame.Rect(500,300,100,400))
-        
         pygame.display.update()
         
         clock.tick(FPS)
