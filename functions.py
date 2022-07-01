@@ -22,6 +22,16 @@ cat2 = pygame.image.load('Cat2.png')
 cat2 = pygame.transform.scale(cat2,(150,150))
 cat2 = pygame.transform.flip(cat2, flip_x=180,flip_y=0)
 
+#Create Dog
+dog = pygame.image.load('dog.png')
+dog = pygame.transform.scale(dog,(150,150))
+dog1 = pygame.image.load('dog1.png')
+dog1 = pygame.transform.scale(dog1,(150,150))
+dog2 = pygame.image.load('dog2.png')
+dog2 = pygame.transform.scale(dog2,(150,150))
+dog3 = pygame.image.load('dog3.png')
+dog3 = pygame.transform.scale(dog3,(150,150))
+
 
 
 class Ball():
@@ -116,10 +126,14 @@ def game():
 
         display.blit(bg,(0,0))
         display.blit(cat,(10,420))
+        display.blit(dog,(850,435))
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             display.blit(cat1,(10,420))
+            display.blit(dog1,(850,430))
         if event.type == pygame.MOUSEBUTTONUP:
             display.blit(cat2,(10,420))
+            display.blit(dog2,(850,430))
 
             
         button =pygame.draw.rect(display,(255,0,0),pygame.Rect(500,300,100,400))
