@@ -8,6 +8,20 @@ display = pygame.display.set_mode((1000, 600))
 clock = pygame.time.Clock()
 FPS = 100
 
+#BG
+bg = pygame.image.load('background.png')
+bg = pygame.transform.scale(bg,(1000,600))
+#Create Cat
+cat = pygame.image.load('Cat.png')
+cat = pygame.transform.scale(cat,(150,150))
+cat = pygame.transform.flip(cat, flip_x=180,flip_y=0)
+cat1 = pygame.image.load('Cat1.png')
+cat1 = pygame.transform.scale(cat1,(150,150))
+cat1 = pygame.transform.flip(cat1, flip_x=180,flip_y=0)
+cat2 = pygame.image.load('Cat2.png')
+cat2 = pygame.transform.scale(cat2,(150,150))
+cat2 = pygame.transform.flip(cat2, flip_x=180,flip_y=0)
+
 
 
 class Ball():
@@ -100,6 +114,12 @@ def game():
                     balls = False
                     ball.conves(int(timecount))
 
+        display.blit(bg,(0,0))
+        display.blit(cat,(10,420))
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            display.blit(cat1,(10,420))
+        if event.type == pygame.MOUSEBUTTONUP:
+            display.blit(cat2,(10,420))
 
             
         button =pygame.draw.rect(display,(255,0,0),pygame.Rect(500,300,100,400))
