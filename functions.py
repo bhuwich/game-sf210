@@ -1,4 +1,5 @@
-from traceback import print_tb
+
+from typing_extensions import Self
 import pygame
 import math
 import time
@@ -36,6 +37,8 @@ dog3 = pygame.transform.scale(dog3,(150,150))
 fish = pygame.image.load('Bone.png')
 fish = pygame.transform.scale(fish,(100,100))
 fish = pygame.transform.flip(fish, flip_x=180,flip_y=0)
+rect = fish.get_rect()
+print(rect)
 #bone
 bone = pygame.image.load('bone1.png')
 bone = pygame.transform.scale(bone,(100,100))
@@ -61,6 +64,8 @@ class Cat():
     def draw(self):
         if self.flag == False:
             display.blit(fish,(self.x,self.y))
+            
+            
         
     def move(self,timecount):
         move = True
@@ -85,6 +90,16 @@ class Cat():
             move = False
             return move
         return move
+    def hit(self,dog_hitbox,wall):
+        fishBone_rect = pygame.Rect(self.x,self.y,60,60)
+        if fishBone_rect.colliderect(wall) or fishBone_rect.colliderect(dog_hitbox):
+            self.flag = True
+        
+        
+
+
+
+
             
     def check(self):
         self.checks = 1
@@ -133,7 +148,13 @@ class Dog():
             move = False
             return move
         return move
-            
+    
+    
+    def hit(self,cat_hitbox,wall):
+        Bone_rect = pygame.Rect(self.x,self.y,60,60)
+        if Bone_rect.colliderect(wall) or Bone_rect.colliderect(cat_hitbox):
+            self.flag = True
+
     def check(self):
         self.checks = 1
     
@@ -210,6 +231,10 @@ def game():
                     bone.check()
                     bones = False
                     bone.conves(int(timecount))
+        fish.hit(dog_hitbox,wall)
+        bone.hit(cat_hitbox,wall)
+        
+        
         
         pygame.display.update()
         
