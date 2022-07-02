@@ -22,6 +22,10 @@ cat1 = pygame.transform.flip(cat1, flip_x=180,flip_y=0)
 cat2 = pygame.image.load('Cat2.png')
 cat2 = pygame.transform.scale(cat2,(150,150))
 cat2 = pygame.transform.flip(cat2, flip_x=180,flip_y=0)
+cat3 = pygame.image.load('Cat3.png')
+cat3 = pygame.transform.scale(cat3,(150,150))
+cat3 = pygame.transform.flip(cat3, flip_x=180,flip_y=0)
+
 
 #Create Dog
 dog = pygame.image.load('dog.png')
@@ -92,7 +96,10 @@ class Cat():
         return move
     def hit(self,dog_hitbox,wall):
         fishBone_rect = pygame.Rect(self.x,self.y,60,60)
-        if fishBone_rect.colliderect(wall) or fishBone_rect.colliderect(dog_hitbox):
+        if fishBone_rect.colliderect(dog_hitbox):
+            display.blit(dog3,(850,430))
+            self.flag = True
+        if fishBone_rect.colliderect(wall):
             self.flag = True
         
         
@@ -152,7 +159,10 @@ class Dog():
     
     def hit(self,cat_hitbox,wall):
         Bone_rect = pygame.Rect(self.x,self.y,60,60)
-        if Bone_rect.colliderect(wall) or Bone_rect.colliderect(cat_hitbox):
+        if Bone_rect.colliderect(cat_hitbox):
+            display.blit(cat3,(10,420))
+            self.flag = True
+        if Bone_rect.colliderect(wall):
             self.flag = True
 
     def check(self):
