@@ -77,8 +77,7 @@ class Cat():
         self.Vy -= self.accerlation
         self.y -= self.Vy
         self.x += self.Vx
-        if self.x == 500 and self.y== 300:
-            print("ball hit!")           
+        if self.x == 500 and self.y== 300:          
             self.flag = True
         if (self.x >= 1000 or self.y >= 600) and self.checks == 1:
 
@@ -174,9 +173,11 @@ def game():
     check = True
     fishs = False
     bones = False
-    dog_heart = 3
-    cat_heart = 4
-    count_hit = 0
+    dog_heart = 5
+    cat_heart = 5
+    count_hitdog = 0
+    count_hitcat = 0
+
     
     while True:
         display.fill((255,255,255))
@@ -194,7 +195,7 @@ def game():
                 if(cat_hitbox.collidepoint(pygame.mouse.get_pos()) and check == False):
                     timeend = time.time()
                     timecount = timeend - timeStart
-                    print("time = ", timeend - timeStart)
+
                     print(pygame.mouse.get_pos())
                     fish.conves(int(timecount))
                     check = True
@@ -202,7 +203,7 @@ def game():
                 if(dog_hitbox.collidepoint(pygame.mouse.get_pos()) and check == False):
                     timeend = time.time()
                     timecount = timeend - timeStart
-                    print("time = ", timeend - timeStart)
+
                     print(pygame.mouse.get_pos())
                     bone.conves(int(timecount))
                     check = True
@@ -222,12 +223,12 @@ def game():
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if(cat_hitbox.collidepoint(pygame.mouse.get_pos())):
-
+                count_hitcat = 0
                 
                   
                 display.blit(cat1,(10,420))
             if(dog_hitbox.collidepoint(pygame.mouse.get_pos())):
-                
+                count_hitdog = 0
                 display.blit(dog1,(850,430))
         if event.type == pygame.MOUSEBUTTONUP:
             if(cat_hitbox.collidepoint(pygame.mouse.get_pos())):
@@ -244,7 +245,7 @@ def game():
                     fish.check()
                     fishs = False
                     fish.conves(int(timecount))
-                
+            
 
         if bones :
             move = bone.move(timecount)
@@ -254,17 +255,22 @@ def game():
                     bone.check()
                     bones = False
                     bone.conves(int(timecount))
-        
-        
-        if fish.hit(dog_hitbox,wall):
-            print("dog hit!")
-            dog_heart -= 1
-        
             
         
+        if fish.hit(dog_hitbox,wall):
+
+            if(count_hitdog == 0):
+                dog_heart -= 1
+            count_hitdog = 1
+            
+
+                   
         if bone.hit(cat_hitbox,wall):
-            print("hit")
-            cat_heart -= 1
+
+            if(count_hitcat == 0):
+                cat_heart -= 1
+            count_hitcat = 1
+            
         
         pygame.display.update()
         
