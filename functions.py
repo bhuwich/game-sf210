@@ -55,10 +55,6 @@ bone = pygame.transform.scale(bone,(100,100))
 heart1 = pygame.image.load('heart.png')
 heart1 = pygame.transform.scale(heart1,(50,50))
 
-
-
-
-
 class Cat():
     def __init__(self):
        self.flag = False
@@ -71,15 +67,11 @@ class Cat():
        self.checks = 0
        self.accerlation = 19.6/FPS
     def conves(self,timecount): 
- 
         self.Vx += timecount*2
         self.Vy += timecount*2
-
-
     def draw(self):
         if self.flag == False:
             display.blit(fish,(self.x,self.y))
-        
     def move(self,timecount):
         move = True
         self.Vy -= self.accerlation
@@ -88,7 +80,6 @@ class Cat():
         if self.x == 500 and self.y== 300:          
             self.flag = True
         if (self.x >= 1000 or self.y >= 600) and self.checks == 1:
-
             self.flag = False
             self.y = 580
             self.x = 50
@@ -109,9 +100,7 @@ class Cat():
             return True
         if fishBone_rect.colliderect(wall):
             self.flag = True
-            
         return False
-
     def check(self):
         self.checks = 1
 
@@ -127,15 +116,11 @@ class Dog():
        self.checks = 0
        self.accerlation = 19.6/FPS
     def conves(self,timecount): 
-          
         self.Vx -= timecount*2
         self.Vy += timecount*2
-
-
     def draw(self):
         if self.flag == False:
             display.blit(bone,(self.x,self.y))
-        
     def move(self,timecount):
         move = True
         self.Vy -= self.accerlation
@@ -154,14 +139,13 @@ class Dog():
             self.s = 20
             self.i = 0
             self.checks = 0
-            print(self.Vx,self.Vy)
+
         
         if self.x <= 0 or self.y >= 600:           
             move = False
             return move
         return move
     def hit(self,cat_hitbox,wall):
-        
         Bone_rect = pygame.Rect(self.x,self.y,60,60)
         if Bone_rect.colliderect(cat_hitbox):
             display.blit(cat3,(10,420))
@@ -170,10 +154,8 @@ class Dog():
         if Bone_rect.colliderect(wall):
             self.flag = True
         return False
-
     def check(self):
         self.checks = 1
-    
     
 def game():
     bone = Dog()
@@ -186,8 +168,10 @@ def game():
     count_hitdog = 0
     count_hitcat = 0
 
-    run = True
-    while run:
+
+    
+    while True:
+
         display.fill((255,255,255))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -203,7 +187,6 @@ def game():
                 if(cat_hitbox.collidepoint(pygame.mouse.get_pos()) and check == False):
                     timeend = time.time()
                     timecount = timeend - timeStart
-
                     print(pygame.mouse.get_pos())
                     fish.conves(int(timecount))
                     check = True
@@ -211,7 +194,6 @@ def game():
                 if(dog_hitbox.collidepoint(pygame.mouse.get_pos()) and check == False):
                     timeend = time.time()
                     timecount = timeend - timeStart
-
                     print(pygame.mouse.get_pos())
                     bone.conves(int(timecount))
                     check = True
@@ -221,6 +203,7 @@ def game():
         dog_hitbox = pygame.draw.rect(display,(255,0,0),pygame.Rect(870,450,100,100))
         wall = pygame.draw.rect(display,(255,0,0),pygame.Rect(450,300,100,400))
         display.blit(bg,(0,0))
+
         #Dog Win
         if cat_heart <= 0:
             display.blit(cat4,(10,420))
@@ -234,7 +217,6 @@ def game():
 
         else:
             display.blit(cat,(10,420))
-
         #Cat Win
         if dog_heart <= 0:
             display.blit(dog4,(850,430))
@@ -246,7 +228,6 @@ def game():
 
         else:
             display.blit(dog,(850,430))
-
         #Show Heart
         for i in range(dog_heart):
             display.blit(heart1,(900-50*i,20))
@@ -263,7 +244,6 @@ def game():
         if event.type == pygame.MOUSEBUTTONUP:
             if(cat_hitbox.collidepoint(pygame.mouse.get_pos())):
                 display.blit(cat2,(10,420))
-
             if(dog_hitbox.collidepoint(pygame.mouse.get_pos())):
                 display.blit(dog2,(850,430))
 
