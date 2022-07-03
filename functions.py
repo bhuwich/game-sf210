@@ -39,6 +39,37 @@ fish = pygame.transform.flip(fish, flip_x=180,flip_y=0)
 #bone
 bone = pygame.image.load('bone1.png')
 bone = pygame.transform.scale(bone,(100,100))
+#heart dog 5
+heart1 = pygame.image.load('heart.png')
+heart1 = pygame.transform.scale(heart1,(50,50))
+
+heart2 = pygame.image.load('heart.png')
+heart2 = pygame.transform.scale(heart2,(50,50))
+
+heart3 = pygame.image.load('heart.png')
+heart3 = pygame.transform.scale(heart3,(50,50))
+
+heart4 = pygame.image.load('heart.png')
+heart4 = pygame.transform.scale(heart4,(50,50))
+
+heart5 = pygame.image.load('heart.png')
+heart5 = pygame.transform.scale(heart5,(50,50))
+#heart cat 5
+heart6 = pygame.image.load('heart.png')
+heart6 = pygame.transform.scale(heart6,(50,50))
+
+heart7 = pygame.image.load('heart.png')
+heart7 = pygame.transform.scale(heart7,(50,50))
+
+heart8 = pygame.image.load('heart.png')
+heart8 = pygame.transform.scale(heart8,(50,50))
+
+heart9 = pygame.image.load('heart.png')
+heart9 = pygame.transform.scale(heart9,(50,50))
+
+heart10 = pygame.image.load('heart.png')
+heart10 = pygame.transform.scale(heart10,(50,50))
+
 
 
 class Cat():
@@ -145,6 +176,7 @@ def game():
     check = True
     fishs = False
     bones = False
+
     
     while True:
         display.fill((255,255,255))
@@ -182,16 +214,31 @@ def game():
         display.blit(bg,(0,0))
         display.blit(cat,(10,420))
         display.blit(dog,(850,430))
-        display.blit(heart1,(900,430))
+        display.blit(heart1,(900,20))
+        display.blit(heart2,(850,20))
+        display.blit(heart3,(800,20))
+        display.blit(heart4,(750,20))
+        display.blit(heart5,(700,20))
+        
+        display.blit(heart6,(50,20))
+        display.blit(heart7,(100,20))
+        display.blit(heart8,(150,20))
+        display.blit(heart9,(200,20))
+        display.blit(heart10,(250,20))
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if(cat_hitbox.collidepoint(pygame.mouse.get_pos())):
+
+                heart5.fill(0)
+                  
                 display.blit(cat1,(10,420))
             if(dog_hitbox.collidepoint(pygame.mouse.get_pos())):
+                heart10.fill(0)
                 display.blit(dog1,(850,430))
         if event.type == pygame.MOUSEBUTTONUP:
             if(cat_hitbox.collidepoint(pygame.mouse.get_pos())):
                 display.blit(cat2,(10,420))
+
             if(dog_hitbox.collidepoint(pygame.mouse.get_pos())):
                 display.blit(dog2,(850,430))
 
