@@ -24,6 +24,9 @@ cat2 = pygame.transform.flip(cat2, flip_x=180,flip_y=0)
 cat3 = pygame.image.load('Cat3.png')
 cat3 = pygame.transform.scale(cat3,(150,150))
 cat3 = pygame.transform.flip(cat3, flip_x=180,flip_y=0)
+cat4 = pygame.image.load('Cat4.png')
+cat4 = pygame.transform.scale(cat4,(150,150))
+cat4 = pygame.transform.flip(cat4, flip_x=180,flip_y=0)
 
 #Create Dog
 dog = pygame.image.load('dog.png')
@@ -34,6 +37,8 @@ dog2 = pygame.image.load('dog2.png')
 dog2 = pygame.transform.scale(dog2,(150,150))
 dog3 = pygame.image.load('dog3.png')
 dog3 = pygame.transform.scale(dog3,(150,150))
+dog4 = pygame.image.load('dogdeath.png')
+dog4 = pygame.transform.scale(dog4,(150,150))
 
 #fish
 fish = pygame.image.load('Bone.png')
@@ -62,8 +67,7 @@ class Cat():
        self.checks = 0
        self.accerlation = 19.6/FPS
     def conves(self,timecount): 
-        self.Vx = 3
-        self.Vy = 11    
+ 
         self.Vx += timecount*2
         self.Vy += timecount*2
 
@@ -102,7 +106,7 @@ class Cat():
             return True
         if fishBone_rect.colliderect(wall):
             self.flag = True
-            return True
+            
         return False
 
     def check(self):
@@ -120,8 +124,7 @@ class Dog():
        self.checks = 0
        self.accerlation = 19.6/FPS
     def conves(self,timecount): 
-        self.Vx = -3
-        self.Vy = 11    
+          
         self.Vx -= timecount*2
         self.Vy += timecount*2
 
@@ -213,8 +216,17 @@ def game():
         dog_hitbox = pygame.draw.rect(display,(255,0,0),pygame.Rect(870,450,100,100))
         wall = pygame.draw.rect(display,(255,0,0),pygame.Rect(450,300,100,400))
         display.blit(bg,(0,0))
-        display.blit(cat,(10,420))
-        display.blit(dog,(850,430))
+        if cat_heart <= 0:
+            display.blit(cat4,(10,420))
+
+        else:
+            display.blit(cat,(10,420))
+
+        if dog_heart <= 0:
+            display.blit(dog4,(850,430))
+        else:
+            display.blit(dog,(850,430))
+
         for i in range(dog_heart):
             display.blit(heart1,(900-50*i,20))
         
