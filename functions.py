@@ -21,6 +21,9 @@ cat1 = pygame.transform.flip(cat1, flip_x=180,flip_y=0)
 cat2 = pygame.image.load('Cat2.png')
 cat2 = pygame.transform.scale(cat2,(150,150))
 cat2 = pygame.transform.flip(cat2, flip_x=180,flip_y=0)
+cat3 = pygame.image.load('Cat3.png')
+cat3 = pygame.transform.scale(cat3,(150,150))
+cat3 = pygame.transform.flip(cat3, flip_x=180,flip_y=0)
 
 #Create Dog
 dog = pygame.image.load('dog.png')
@@ -43,32 +46,7 @@ bone = pygame.transform.scale(bone,(100,100))
 heart1 = pygame.image.load('heart.png')
 heart1 = pygame.transform.scale(heart1,(50,50))
 
-heart2 = pygame.image.load('heart.png')
-heart2 = pygame.transform.scale(heart2,(50,50))
 
-heart3 = pygame.image.load('heart.png')
-heart3 = pygame.transform.scale(heart3,(50,50))
-
-heart4 = pygame.image.load('heart.png')
-heart4 = pygame.transform.scale(heart4,(50,50))
-
-heart5 = pygame.image.load('heart.png')
-heart5 = pygame.transform.scale(heart5,(50,50))
-#heart cat 5
-heart6 = pygame.image.load('heart.png')
-heart6 = pygame.transform.scale(heart6,(50,50))
-
-heart7 = pygame.image.load('heart.png')
-heart7 = pygame.transform.scale(heart7,(50,50))
-
-heart8 = pygame.image.load('heart.png')
-heart8 = pygame.transform.scale(heart8,(50,50))
-
-heart9 = pygame.image.load('heart.png')
-heart9 = pygame.transform.scale(heart9,(50,50))
-
-heart10 = pygame.image.load('heart.png')
-heart10 = pygame.transform.scale(heart10,(50,50))
 
 
 
@@ -117,7 +95,17 @@ class Cat():
             move = False
             return move
         return move
-            
+    def hit(self,dog_hitbox,wall):
+        fishBone_rect = pygame.Rect(self.x,self.y,60,60)
+        if fishBone_rect.colliderect(dog_hitbox):
+            display.blit(dog3,(850,430))
+            self.flag = True
+            return True
+        if fishBone_rect.colliderect(wall):
+            self.flag = True
+            return True
+        return False
+
     def check(self):
         self.checks = 1
 
@@ -165,7 +153,17 @@ class Dog():
             move = False
             return move
         return move
-            
+    def hit(self,cat_hitbox,wall):
+        
+        Bone_rect = pygame.Rect(self.x,self.y,60,60)
+        if Bone_rect.colliderect(cat_hitbox):
+            display.blit(cat3,(10,420))
+            self.flag = True
+            return True
+        if Bone_rect.colliderect(wall):
+            self.flag = True
+        return False
+
     def check(self):
         self.checks = 1
     
@@ -176,7 +174,9 @@ def game():
     check = True
     fishs = False
     bones = False
-
+    dog_heart = 3
+    cat_heart = 4
+    count_hit = 0
     
     while True:
         display.fill((255,255,255))
@@ -214,26 +214,20 @@ def game():
         display.blit(bg,(0,0))
         display.blit(cat,(10,420))
         display.blit(dog,(850,430))
-        display.blit(heart1,(900,20))
-        display.blit(heart2,(850,20))
-        display.blit(heart3,(800,20))
-        display.blit(heart4,(750,20))
-        display.blit(heart5,(700,20))
+        for i in range(dog_heart):
+            display.blit(heart1,(900-50*i,20))
         
-        display.blit(heart6,(50,20))
-        display.blit(heart7,(100,20))
-        display.blit(heart8,(150,20))
-        display.blit(heart9,(200,20))
-        display.blit(heart10,(250,20))
+        for i in range(cat_heart):
+            display.blit(heart1,(50*i,20))
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if(cat_hitbox.collidepoint(pygame.mouse.get_pos())):
 
-                heart5.fill(0)
+                
                   
                 display.blit(cat1,(10,420))
             if(dog_hitbox.collidepoint(pygame.mouse.get_pos())):
-                heart10.fill(0)
+                
                 display.blit(dog1,(850,430))
         if event.type == pygame.MOUSEBUTTONUP:
             if(cat_hitbox.collidepoint(pygame.mouse.get_pos())):
@@ -250,6 +244,7 @@ def game():
                     fish.check()
                     fishs = False
                     fish.conves(int(timecount))
+                
 
         if bones :
             move = bone.move(timecount)
@@ -259,11 +254,21 @@ def game():
                     bone.check()
                     bones = False
                     bone.conves(int(timecount))
- 
+        
+        
+        if fish.hit(dog_hitbox,wall):
+            print("dog hit!")
+            dog_heart -= 1
+        
+            
+        
+        if bone.hit(cat_hitbox,wall):
+            print("hit")
+            cat_heart -= 1
         
         pygame.display.update()
         
-        clock.tick(FPS)
+        clock.tick(60)
 
 game()
 pygame.quit()
