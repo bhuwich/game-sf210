@@ -1,7 +1,7 @@
-from traceback import print_tb
 import pygame
 import math
 import time
+who_win = ""
 pygame.init()
 
 display = pygame.display.set_mode((1000, 600))
@@ -83,7 +83,7 @@ class Cat():
     def move(self,timecount):
         move = True
         self.Vy -= self.accerlation
-        self.y -= self.Vy
+        self.y -= self.Vy  
         self.x += self.Vx
         if self.x == 500 and self.y== 300:          
             self.flag = True
@@ -97,7 +97,6 @@ class Cat():
             self.s = 20
             self.i = 0
             self.checks = 0
-            print(self.Vx,self.Vy)
         if self.x >= 1000 or self.y >= 600:           
             move = False
             return move
@@ -142,6 +141,7 @@ class Dog():
         self.Vy -= self.accerlation
         self.y -= self.Vy
         self.x += self.Vx
+
         if self.x == 500 and self.y== 300:
             print("ball hit!")           
             self.flag = True
@@ -154,6 +154,7 @@ class Dog():
             self.s = 20
             self.i = 0
             self.checks = 0
+            print(self.Vx,self.Vy)
         
         if self.x <= 0 or self.y >= 600:           
             move = False
@@ -180,17 +181,17 @@ def game():
     check = True
     fishs = False
     bones = False
-    dog_heart = 5
+    dog_heart = 1
     cat_heart = 5
     count_hitdog = 0
     count_hitcat = 0
 
-    
-    while True:
+    run = True
+    while run:
         display.fill((255,255,255))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
+                return who_win
             if event.type == pygame.MOUSEBUTTONDOWN:
                 timeStart = time.time()
                 if(cat_hitbox.collidepoint(pygame.mouse.get_pos())):
@@ -224,6 +225,13 @@ def game():
         if cat_heart <= 0:
             display.blit(cat4,(10,420))
             display.blit(dog_win,(330,0))
+            who_win = 'dog'
+
+                       
+
+
+
+
         else:
             display.blit(cat,(10,420))
 
@@ -231,6 +239,11 @@ def game():
         if dog_heart <= 0:
             display.blit(dog4,(850,430))
             display.blit(cat_win,(330,0))
+            who_win = 'cat'
+
+
+
+
         else:
             display.blit(dog,(850,430))
 
@@ -286,5 +299,17 @@ def game():
         
         clock.tick(60)
 
-game()
+who_win =game()
 pygame.quit()
+f = open("history.txt","a")
+if who_win == 'dog':
+    print('hello')
+    f.write('dog\n')
+    f.close()
+elif who_win == 'cat':
+    print('hi')
+    f.write('cat\n')
+    f.close()
+print(who_win)
+
+
