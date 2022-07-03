@@ -40,6 +40,7 @@ fish = pygame.transform.flip(fish, flip_x=180,flip_y=0)
 bone = pygame.image.load('bone1.png')
 bone = pygame.transform.scale(bone,(100,100))
 
+
 class Cat():
     def __init__(self):
        self.flag = False
@@ -128,7 +129,7 @@ class Dog():
             self.s = 20
             self.i = 0
             self.checks = 0
-            print(self.Vx,self.Vy)
+        
         if self.x <= 0 or self.y >= 600:           
             move = False
             return move
@@ -181,6 +182,7 @@ def game():
         display.blit(bg,(0,0))
         display.blit(cat,(10,420))
         display.blit(dog,(850,430))
+        display.blit(heart1,(900,430))
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if(cat_hitbox.collidepoint(pygame.mouse.get_pos())):
@@ -210,6 +212,7 @@ def game():
                     bone.check()
                     bones = False
                     bone.conves(int(timecount))
+ 
         
         pygame.display.update()
         
