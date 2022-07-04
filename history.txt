@@ -1,0 +1,9 @@
+cat
+cat
+cat
+cat
+cat
+cat
+cat
+Dogs win rate: 0.0%cat
+Cat win rate: 87.5%

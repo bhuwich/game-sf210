@@ -210,11 +210,6 @@ def game():
             display.blit(dog_win,(330,0))
             who_win = 'dog'
 
-                       
-
-
-
-
         else:
             display.blit(cat,(10,420))
         #Cat Win
@@ -283,13 +278,19 @@ who_win =game()
 pygame.quit()
 f = open("history.txt","a")
 if who_win == 'dog':
-    print('hello')
     f.write('dog\n')
-    f.close()
 elif who_win == 'cat':
-    print('hi')
-    f.write('cat\n')
-    f.close()
+    f.write('cat\n')   
 print(who_win)
 
 
+with open('history.txt')as file:
+    histories = [line.strip() for line in file]
+    if who_win == 'dog': 
+        print(f'Dog win rate: {histories.count("dog")/len(histories)*100}%')
+        f.write(f'Dog win rate: {histories.count("dog")/len(histories)*100}%')
+        f.close()
+    elif who_win == 'cat': 
+        print(f'Cat win rate: {histories.count("cat")/len(histories)*100}%')
+        f.write(f'Cat win rate: {histories.count("cat")/len(histories)*100}%')
+        f.close
