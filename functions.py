@@ -1,12 +1,37 @@
+from cgitb import text
+from turtle import Screen, screensize
 import pygame
 import math
 import time
-who_win = ""
+
 pygame.init()
 
 display = pygame.display.set_mode((1000, 600))
 clock = pygame.time.Clock()
 FPS = 100
+
+#Win rate
+f = open("history.txt", "r")
+count_cat = 0
+count_dog = 0
+for x in f:
+    if x.startswith("cat"):
+        count_cat +=1
+    if x.startswith("dog"):
+        count_dog +=1
+print(count_cat,count_dog)
+round = count_dog+count_cat
+winrate_dog = str((count_dog/round)*100)
+winrate_dog = winrate_dog+"%"
+winrate_cat = str((count_cat/round)*100)
+winrate_cat = winrate_cat+"%"
+
+font = pygame.font.SysFont(None, 20)
+win_rate_dog = font.render(winrate_dog, True, (0, 0, 0))
+win_rate_cat = font.render(winrate_cat, True, (0, 0, 0))
+
+
+
 
 #BG
 bg = pygame.image.load('background.png')
@@ -164,9 +189,10 @@ def game():
     fishs = False
     bones = False
     dog_heart = 1
-    cat_heart = 5
+    cat_heart = 1
     count_hitdog = 0
     count_hitcat = 0
+    who_win = ""
 
 
     
@@ -202,25 +228,28 @@ def game():
         cat_hitbox = pygame.draw.rect(display,(255,0,0),pygame.Rect(30,450,100,100))
         dog_hitbox = pygame.draw.rect(display,(255,0,0),pygame.Rect(870,450,100,100))
         wall = pygame.draw.rect(display,(255,0,0),pygame.Rect(450,300,100,400))
+        display.blit(text, win_rate_dog.get_rect(center = display.get_rect().center))
+        display.blit(text, win_rate_cat.get_rect(center = display.get_rect().center))
         display.blit(bg,(0,0))
 
         #Dog Win
         if cat_heart <= 0:
+            
             display.blit(cat4,(10,420))
-            display.blit(dog_win,(330,0))
+            display.blit(dog_win,(330,0))            
             who_win = 'dog'
-
+           
+            
+            
         else:
             display.blit(cat,(10,420))
         #Cat Win
         if dog_heart <= 0:
+           
             display.blit(dog4,(850,430))
             display.blit(cat_win,(330,0))
             who_win = 'cat'
-
-
-
-
+               
         else:
             display.blit(dog,(850,430))
         #Show Heart
@@ -288,9 +317,9 @@ with open('history.txt')as file:
     histories = [line.strip() for line in file]
     if who_win == 'dog': 
         print(f'Dog win rate: {histories.count("dog")/len(histories)*100}%')
-        f.write(f'Dog win rate: {histories.count("dog")/len(histories)*100}%')
+        f.write(f'Dog win rate: {histories.count("dog")/len(histories)*100}%\n')
         f.close()
     elif who_win == 'cat': 
         print(f'Cat win rate: {histories.count("cat")/len(histories)*100}%')
-        f.write(f'Cat win rate: {histories.count("cat")/len(histories)*100}%')
+        f.write(f'Cat win rate: {histories.count("cat")/len(histories)*100}%\n')
         f.close

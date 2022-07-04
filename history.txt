@@ -1,9 +1,3 @@
 cat
-cat
-cat
-cat
-cat
-cat
-cat
-Dogs win rate: 0.0%cat
-Cat win rate: 87.5%
+dogcat
+Cat win rate: 50.0%
