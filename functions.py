@@ -26,12 +26,6 @@ winrate_dog = winrate_dog+"%"
 winrate_cat = str((count_cat/round)*100)
 winrate_cat = winrate_cat+"%"
 
-font = pygame.font.SysFont(None, 20)
-win_rate_dog = font.render(winrate_dog, True, (0, 0, 0))
-win_rate_cat = font.render(winrate_cat, True, (0, 0, 0))
-
-
-
 
 #BG
 bg = pygame.image.load('background.png')
@@ -224,13 +218,18 @@ def game():
                     bone.conves(int(timecount))
                     check = True
                     bones = True 
+        font = pygame.font.SysFont(None, 20)
+        win_rate_dog = font.render("Dog winrate  = "+ winrate_dog, True, (0, 0, 0))
+        win_rate_cat = font.render("Cat winrate  = "+winrate_cat, True, (0, 0, 0))
 
+        
         cat_hitbox = pygame.draw.rect(display,(255,0,0),pygame.Rect(30,450,100,100))
         dog_hitbox = pygame.draw.rect(display,(255,0,0),pygame.Rect(870,450,100,100))
         wall = pygame.draw.rect(display,(255,0,0),pygame.Rect(450,300,100,400))
-        display.blit(text, win_rate_dog.get_rect(center = display.get_rect().center))
-        display.blit(text, win_rate_cat.get_rect(center = display.get_rect().center))
+
         display.blit(bg,(0,0))
+        display.blit(win_rate_dog, (850,2))
+        display.blit(win_rate_cat, (850,18))
 
         #Dog Win
         if cat_heart <= 0:
@@ -323,3 +322,5 @@ with open('history.txt')as file:
         print(f'Cat win rate: {histories.count("cat")/len(histories)*100}%')
         f.write(f'Cat win rate: {histories.count("cat")/len(histories)*100}%\n')
         f.close
+
+
