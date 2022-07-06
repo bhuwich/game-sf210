@@ -3,9 +3,8 @@ from turtle import Screen, screensize
 import pygame
 import math
 import time
-
+#ตั้งค่าต่างๆไว้ใช้ในgame
 pygame.init()
-
 display = pygame.display.set_mode((1000, 600))
 clock = pygame.time.Clock()
 FPS = 100
@@ -19,12 +18,14 @@ for x in f:
         count_cat +=1
     if x.startswith("dog"):
         count_dog +=1
-print(count_cat,count_dog)
-round = count_dog+count_cat
-winrate_dog = str((count_dog/round)*100)
-winrate_dog = winrate_dog+"%"
-winrate_cat = str((count_cat/round)*100)
-winrate_cat = winrate_cat+"%"
+
+round = count_dog+count_cat    
+#prevent division by zero
+if(round==0):
+    round+=1    
+winrate_dog = str((count_dog/round)*100)+"%"
+winrate_cat = str((count_cat/round)*100)+"%"
+
 
 
 #BG
@@ -73,6 +74,7 @@ bone = pygame.transform.scale(bone,(100,100))
 #heart dog 5
 heart1 = pygame.image.load('heart.png')
 heart1 = pygame.transform.scale(heart1,(50,50))
+
 
 class Cat():
     def __init__(self):
@@ -182,8 +184,8 @@ def game():
     check = True
     fishs = False
     bones = False
-    dog_heart = 1
-    cat_heart = 1
+    dog_heart = 5
+    cat_heart = 5
     count_hitdog = 0
     count_hitcat = 0
     who_win = ""
@@ -207,14 +209,12 @@ def game():
                 if(cat_hitbox.collidepoint(pygame.mouse.get_pos()) and check == False):
                     timeend = time.time()
                     timecount = timeend - timeStart
-                    print(pygame.mouse.get_pos())
                     fish.conves(int(timecount))
                     check = True
                     fishs = True 
                 if(dog_hitbox.collidepoint(pygame.mouse.get_pos()) and check == False):
                     timeend = time.time()
                     timecount = timeend - timeStart
-                    print(pygame.mouse.get_pos())
                     bone.conves(int(timecount))
                     check = True
                     bones = True 
@@ -311,18 +311,8 @@ elif who_win == 'cat':
     f.write('cat') 
 f.write("\n")
 f.close()
-print(who_win)
 
-f = open("history.txt","a")
-with open('history.txt')as file:
-    histories = [line.strip() for line in file]
-    print(histories
-    )
-    if who_win == 'dog': 
-        print(f'Dog win rate: {histories.count("dog")/len(histories)*100}%')
-        f.close()
-    elif who_win == 'cat': 
-        print(f'Cat win rate: {histories.count("cat")/len(histories)*100}%')
-        f.close
+
+
 
 
